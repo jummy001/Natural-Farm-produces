@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Select Payment</title>
+
+<style>
+body {
+  font-family: Arial;
+  text-align: center;
+  background: #0f172a;
+  color: white;
+  margin-top: 100px;
+}
+
+button {
+  padding: 15px;
+  margin: 10px;
+  width: 220px;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.card { background: #22c55e; }
+.transfer { background: #3b82f6; }
+</style>
+
+</head>
+
+<body>
+
+<h2>Select Payment Method</h2>
+
+<button class="card" onclick="payNow()">💳 Pay with Card</button>
+<button class="transfer" onclick="payNow()">🏦 Bank Transfer</button>
+
+<script>
+async function payNow() {
+  const params = new URLSearchParams(window.location.search);
+
+  const name = params.get("name");
+  const email = params.get("email");
+  const amount = params.get("amount");
+
+  if (!name || !email || !amount) {
+    alert("Missing payment data");
+    return;
+  }
+
+  // 🔥 THIS CALLS YOUR BACKEND (WHICH CONNECTS TO QUICKTELLER)
+  const res = await fetch("http://localhost:5000/pay", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ name, email, amount })
+  });
+
+  // 🔥 THIS LOADS QUICKTELLER FORM (IMPORTANT)
+  const html = await res.text();
+
+  document.open();
+  document.write(html);
+  document.close();
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>My Spices</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='styles.css'>
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+      
+     
+</head>        
+<body>
+    <!---navbar-->
+
+  <nav class="navbar navbar-expand-lg navbar-dark" id="navbar">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">RA_ENTERPRICE SPICES</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"  aria-expanded="false">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mx-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="#">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#about">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#Product">Product</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#contact">Contact</a>
+        </li>
+        <li class="nav-item">
+          <a href="promo.html" class="btn btn-success">View Promotions & Deals</a>
+        </li>
+        <li class="nav-item">
+          <a href="checkout.html" class="btn btn-success">Make Payment</a>
+        </li>
+        <li class="nav-item">
+          <a href="http://localhost:5000/verify?txnref=DEMO123" class="btn btn-success">Checkout</a>
+        </li>
+        </ul>
+        
+<button class="btn signin-btn" data-bs-toggle="modal" data-bs-target="#signinModal">
+  Sign In
+</button>
+
+    </div>
+</nav>
+
+<div class="modal fade" id="signinModal">
+  <div class="modal-dialog">
+    <div class="modal-content p-4 rounded-3">
+
+      <h3 class="text-center mb-3">Sign In</h3>
+
+      <form>
+        <div class="mb-3">
+          <label>Email</label>
+          <input type="email" class="form-control" required placeholder="Enter your email">
+        </div>
+
+        <div class="mb-3">
+          <label>Password</label>
+          <input type="password" class="form-control" required placeholder="Enter your password">
+        </div>
+
+        <a href="#Product">
+          <button type="button" class="btn signin-btn w-100">Sign In</button>
+        </a>
+      </form>
+      <p class="text-center mt-3">Don't have an account? <a href="#">Sign Up</a></p>
+
+    </div>
+  </div>
+</div>
+
+
+
+
+<!---Home-->
+<section id="home">
+ <h1 class="text-center">NATURAL FARM PRODUCES AND SPICES</h1>
+ <p>Variety's your unique farm produces, that gives it all its flavour</p>
+  <div class="input-group m-4">
+  <input type="text"  class="form-control" placeholder="Email Address">
+    <a href="#Product" class="btn signin">Get Started</a>
+ </div>
+</section>
+
+
+<!---About section-->
+<section id="about">
+  <div class="container-fluid">
+    <div class="row">
+
+      <!-- Left: Logo -->
+      <div class="col-lg-6 col-md-6 col-12">
+        <img src="Assets/logo.png" class="img-fluid" alt="Logo">
+      </div>
+
+      <!-- Right: Text -->
+      <div class="col-lg-6 col-md-6 col-12 p-lg-5 p-2 my-5">
+        <h1>ABOUT US</h1>
+
+        <p>
+          At RA Enterprise, we bring nature’s best to your table. We specialize in supplying clean, organic farm produce and a wide range of carefully selected dry foods. From sourcing to delivery, we prioritize freshness, transparency, and customer satisfaction. Our products are natural, affordable, and tailored to meet the needs of health-conscious consumers, retailers, and wholesalers. <br><br>
+          Choose RA Enterprise for quality you can trust, service you can rely on, and products that support a healthier lifestyle.
+        </p>
+
+        <h2>🌿 Mission Statement</h2>
+        <p>
+          Our mission is to provide clean, high-quality organic farm produce and dry foods that promote healthier living. We are committed to sourcing responsibly, maintaining strict quality standards, and delivering products that nourish individuals, families, and communities.
+        </p>
+
+        <h2>🌿 Vision Statement</h2>
+        <p>
+          Our vision is to become a leading and trusted supplier of organic and natural food products across the region—empowering healthier lifestyles, supporting sustainable farming practices, and building a food system rooted in quality, integrity, and long-term impact.
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="Product">
+   <div class="container my-5">
+        <h1 class="text-center my-5">OUR PRODUCTS</h1>
+
+        <!-- Row 1 -->
+        <div class="row mb-4">
+            <div class="col-lg-4 col-md-4 col-12">
+                <div class="card h-100">
+                    <img src="Assets/Tumeric powder.jpg" class="card-img-top" alt="">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Tumeric powder</h5>
+                        <a href="#" class="btn signin">Add to cart</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-4 col-12">
+                <div class="card h-100">
+                    <img src="Assets/garlic powder.jpg" class="card-img-top" alt="">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Garlic powder</h5>
+                        <a href="#" class="btn signin">Add to cart</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-4 col-12">
+                <div class="card h-100">
+                    <img src="Assets/onion powder.jpeg" class="card-img-top" alt="">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Onion powder</h5>
+                        <a href="#" class="btn signin">Add to cart</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Row 2 -->
+        <div class="row mb-4">
+            <div class="col-lg-4 col-md-4 col-12">
+                <div class="card h-100">
+                    <img src="Assets/grounded egusi.jpg" class="card-img-top" alt="">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Grounded Egusi</h5>
+                        <a href="#" class="btn signin">Add to cart</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-4 col-12">
+                <div class="card h-100">
+                    <img src="Assets/chili pepper.jpg" class="card-img-top" alt="">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Chili pepper</h5>
+                        <a href="#" class="btn signin">Add to cart</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-4 col-12">
+                <div class="card h-100">
+                    <img src="Assets/dry catfish - Copy.jpg" class="card-img-top" alt="">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Dry catfish</h5>
+                        <a href="#" class="btn signin">Add to cart</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Row 3 -->
+        <div class="row mb-4">
+            <div class="col-lg-4 col-md-4 col-12">
+                <div class="card h-100">
+                    <img src="Assets/crayfish.png" class="card-img-top" alt="">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Crayfish</h5>
+                        <a href="#" class="btn signin">Add to cart</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-4 col-12">
+                <div class="card h-100">
+                    <img src="Assets/egusi melon - Copy.jpg" class="card-img-top" alt="">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Egusi melon</h5>
+                        <a href="#" class="btn signin">Add to cart</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-4 col-12">
+                <div class="card h-100">
+                    <img src="Assets/red oil - Copy.png" class="card-img-top" alt="">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Red oil</h5>
+                        <a href="#" class="btn signin">Add to cart</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+   </div>
+</section>
+
+
+<section id="contact">
+       <div class="container box">
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-12">
+            <img src="Assets/Spices and Herbs in Symmetry.png" class="img-fluid">
+          </div>
+          <div class="col-lg-6 col-md-6 col-12">
+            <h1>CONTACT US</h1>
+            <form class="mb-3">
+              <form action="https://formsubmit.co/your@email.com" method="POST" />
+              <input type="text" class="form-control"
+              placeholder="Enter your name">
+              <input type="text" class="form-control"
+              placeholder="Enter your mail">
+              <textarea class="form-control"
+              placeholder="Enter your messagge"></textarea>
+              <button class="btn signin">Send message</button>
+            </form>
+          </div>
+        </div>
+       </div>
+</section>
+
+<footer>Copyright @jummydesign 2025</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"> </script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    
+</body>
+</html>

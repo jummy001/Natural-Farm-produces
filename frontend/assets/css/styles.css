@@ -1,0 +1,204 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'poppins', sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+#navbar { 
+    position: sticky;
+    top: 0;
+    left: o;
+    z-index: 100;
+    padding: .5rem 5rem;
+    box-shadow: 5px 5px 20px rgb(0,0,0, .5 );
+    background: black;
+}
+
+.navbar .navbar-brand {
+    font-size: larger;
+    font-weight: 800;
+    color: #29f700 !important;
+}
+
+#navbarSupportedContent a{
+color: #fff;
+border-bottom: 2px solid transparent;
+
+}
+#navbarSupportedContent a:hover{
+    border-bottom: 2px solid  #29f700;
+}
+#navbarSupportedContent button{
+    background: #29f700;
+    width: 5rem;
+    border-radius: 15px;
+}
+
+section {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+/****Home*****/
+#home{
+    background:
+        linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
+        url("Assets/first image.png");
+    background-size: cover;
+    background-position: center;
+    flex-direction: column;
+}
+
+#home h1 {
+    font-size: 100px;
+    color: #fff;
+    letter-spacing: 3px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    text-shadow: 
+        0px 1px 0px #ccc,
+        0px 2px 0px #ccc,
+        0px 3px 0px #ccc,
+        0px 4px 0px #ccc,
+        0px 5px 0px #ccc,
+        0px 6px 0px #ccc,
+        0px 7px 0px #ccc;
+}
+
+#home p{
+    font-size: 18px;
+    color: #fff;
+}
+
+#home .input-group{
+    width: 40%;
+    height: 45px;
+}
+.signin{
+background: green !important;
+color: #fff !important;
+box-shadow: 2px 4px 5px rgba(0,0,0, .3);
+
+}
+
+/****About section*****/
+#about {
+    background: linear-gradient(to right, #ea1d6f, #ea1d6f, #eb466b 100%);
+}
+
+#about img {
+    margin-top: -150px;
+}
+
+
+#about h1 {
+    font-weight: 800;
+    font-size: 50px;
+    color: #fff;
+}
+
+
+/***product section*****/
+#product{
+    background: #e5e5e5;
+}
+#product h1{
+    font-size: 50px;
+    letter-spacing: 2px;
+    font-weight: 700;
+}
+#product img{
+    width: 200px;
+    height: 200px;
+
+}
+.card {
+    width: 250px;
+    height: 300px;
+    background: #e5e5e5 !important;
+    border: none !important;
+    box-shadow: 15px 20px 20px rgba(0,0,0, .3);
+               inset: 4px 4px 10px white;
+               border-radius: 20px !important;
+               overflow: hidden;
+               justify-content: center;
+               align-items: center;
+               margin: 20px 60px;
+               transition: .2s;
+}
+
+.card:hover{
+    box-shadow: inset 5px 5px 10px rgba(0,0,0, .3);
+               inset: -4px -4px 10px white;
+   transition: .2s;            
+}
+
+
+/***Contact section*****/
+
+#contact img{
+    height: 100%;
+}
+
+.box {
+    width: 100%;
+    margin-top: 10px;
+    padding: 30px;
+
+    background: 
+        linear-gradient(rgba(24, 23, 23, 0.5), rgba(20, 5, 5, 0.5)),
+        url("Assets/OPE\ -\ Copy.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    color: white;
+}
+
+.card-img-top {
+    height: 200px;
+    object-fit: cover; /* crops image so it fits nicely */
+}
+
+
+.row {
+    margin-bottom: 30px;
+}
+
+
+form{
+    display: flex;
+    flex-direction: column;
+}
+
+#contact input{
+    margin: 10px 0px;
+}
+#contact textarea{
+    margin: 10px 0px;
+}
+
+footer{
+    width: 100%;
+    height: 30px;
+    background: rgba(0,0,0, .8);
+    margin-top: -30px;
+    text-align: center;
+    color: white;
+    padding: 3px;
+}
+
+.modal-dialog .modal-content{
+    background-color: green;
+}

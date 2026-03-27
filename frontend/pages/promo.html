@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Promotions & Deals - Farm Marketplace</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+
+body{
+background:#f5f5f5;
+font-family:Arial, Helvetica, sans-serif;
+}
+
+.category-btn.active{
+background:#28a745;
+color:white;
+}
+
+/* PROMO CARDS */
+
+.promo-card{
+position:relative;
+overflow:hidden;
+border-radius:10px;
+}
+
+.promo-card img{
+height:200px;
+object-fit:cover;
+transition:transform .4s;
+}
+
+.promo-card:hover img{
+transform:scale(1.05);
+}
+
+.discount-badge{
+position:absolute;
+top:10px;
+left:10px;
+font-size:14px;
+}
+
+/* CATEGORY CARDS */
+
+.category-card{
+width:120px;
+text-align:center;
+background:white;
+border-radius:12px;
+padding:15px;
+box-shadow:0 4px 10px rgba(0,0,0,0.08);
+transition:all .3s;
+cursor:pointer;
+}
+
+.category-card:hover{
+transform:translateY(-5px);
+box-shadow:0 8px 20px rgba(0,0,0,0.15);
+}
+
+.category-card img{
+width:70px;
+height:70px;
+border-radius:50%;
+object-fit:cover;
+margin-bottom:10px;
+}
+
+.category-name{
+font-weight:600;
+font-size:14px;
+}
+
+/* FARMER CARDS */
+
+.farmer-card{
+border-radius:12px;
+overflow:hidden;
+background:white;
+box-shadow:0 4px 10px rgba(0,0,0,0.1);
+transition:.3s;
+}
+
+.farmer-card:hover{
+transform:translateY(-6px);
+box-shadow:0 10px 25px rgba(0,0,0,0.2);
+}
+
+.farmer-card img{
+height:200px;
+object-fit:cover;
+}
+
+.farmer-info{
+padding:15px;
+}
+
+.rating{
+color:#f4b400;
+font-weight:600;
+}
+
+</style>
+</head>
+
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-success">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="index.html">RA_ENTERPRISE SPICES</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#promoNavbar" aria-controls="promoNavbar" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="promoNavbar">
+      <ul class="navbar-nav mx-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="index.html#home">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="index.html#about">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="index.html#Product">Products</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="index.html#contact">Contact</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container py-4">
+
+<h1 class="text-success mb-4">Promotions & Deals</h1>
+
+<!-- CATEGORY FILTER -->
+
+<div class="mb-4 d-flex gap-2 flex-wrap">
+
+<button class="btn btn-light category-btn active" data-category="All">All</button>
+<button class="btn btn-light category-btn" data-category="Fruits">Fruits</button>
+<button class="btn btn-light category-btn" data-category="Vegetables">Vegetables</button>
+<button class="btn btn-light category-btn" data-category="Livestock">Livestock</button>
+<button class="btn btn-light category-btn" data-category="Grains">Grains</button>
+
+</div>
+
+
+<!-- BANNER -->
+
+<div id="promoCarousel" class="carousel slide mb-5" data-bs-ride="carousel" data-bs-interval="3000">
+
+<div class="carousel-inner" id="carouselInner"></div>
+
+<button class="carousel-control-prev" type="button" data-bs-target="#promoCarousel" data-bs-slide="prev">
+<span class="carousel-control-prev-icon"></span>
+</button>
+
+<button class="carousel-control-next" type="button" data-bs-target="#promoCarousel" data-bs-slide="next">
+<span class="carousel-control-next-icon"></span>
+</button>
+
+</div>
+
+
+<!-- PROMO PRODUCTS -->
+
+<div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4 mb-5" id="promoCards"></div>
+
+
+<!-- CATEGORY SECTION -->
+
+<h3 class="mb-3">Browse by Category</h3>
+
+<div class="d-flex gap-3 mb-5 overflow-auto" id="categoryCards"></div>
+
+
+<!-- FEATURED FARMERS -->
+
+<h3 class="mb-3">Featured Farmers</h3>
+
+<div class="row g-4 mb-5" id="farmersSection"></div>
+
+
+<!-- SUBSCRIBE -->
+
+<div class="bg-warning p-4 rounded text-center">
+
+<h4>Get the Latest Deals!</h4>
+
+<p>Subscribe for exclusive offers</p>
+
+<form class="d-flex justify-content-center" id="subscribeForm">
+
+<input type="email" class="form-control w-50 me-2" placeholder="Enter email" required>
+
+<button class="btn btn-success">Subscribe</button>
+
+</form>
+
+<p id="subscribeMessage" class="text-success mt-2"></p>
+
+</div>
+
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+
+/* BANNERS */
+
+const banners=[
+
+{
+id:1,
+image:"https://www.ibef.org/discoverindia/organic-products/organic_images/io-bottom-img.jpg",
+title:"Fresh Farm Produce",
+discount:"Up to 30% OFF"
+},
+
+{
+id:2,
+image:"https://i0.wp.com/sevananda.coop/wp-content/uploads/2020/12/75-Off-on-Organic-Products.png?fit=796%2C346&ssl=1",
+title:"Organic Market Deals",
+discount:"Save 20%"
+}
+
+];
+
+
+/* PROMO PRODUCTS */
+
+const promos=[
+
+{
+id:1,
+name:"Sweet Potatoes",
+image:"https://www.arc.agric.za/arc-vopi/SiteAssets/Pages/Plant%20Breeding/Sweet-Potatoes/SweetPotatoSM3.jpg",
+discount:"20% OFF",
+description:"Fresh farm harvest",
+category:"Vegetables"
+},
+
+{
+id:2,
+name:"Organic Chicken",
+image:"https://i.ytimg.com/vi/8czsvbnCuvE/hq720.jpg",
+discount:"15% OFF",
+description:"Healthy free range",
+category:"Livestock"
+},
+
+{
+id:3,
+name:"Fresh Corn",
+image:"https://static.vecteezy.com/system/resources/thumbnails/051/022/799/small/freshly-harvested-yellow-corn-cobs-arranged-in-a-basket-at-a-local-farmers-market-photo.jpeg",
+discount:"25% OFF",
+description:"Direct from farmers",
+category:"Vegetables"
+},
+
+{
+id:4,
+name:"Pure Honey",
+image:"https://images.squarespace-cdn.com/content/v1/622312fda30e487ad9a3414e/a306cae4-bcc5-4f33-8047-f935ac487585/How+honey+is+processed.png",
+discount:"30% OFF",
+description:"Natural organic honey",
+category:"Grains"
+}
+
+];
+
+
+/* CATEGORY IMAGES */
+
+const categories=["Fruits","Vegetables","Livestock","Grains"];
+
+const categoryImages={
+Fruits:"https://c8.alamy.com/comp/2RFY851/a-variety-of-fresh-fruits-and-vegetables-on-a-market-stall-in-tenerife-canary-islands-spain-2RFY851.jpg",
+Vegetables:"https://media.istockphoto.com/id/160342236/photo/fruit-and-vegetable-market.jpg?s=612x612&w=0&k=20&c=pC1g3z3Rm8_IH3fe4JREUrwhNZsLk23JMK-_07NNFJA=",
+Livestock:"https://www.shutterstock.com/image-photo/happy-african-american-farmer-caring-600nw-2049876596.jpg",
+Grains:"https://www.shutterstock.com/image-photo/marrakech-market-sacks-full-legumes-260nw-2395439765.jpg"
+};
+
+
+/* FARMERS */
+
+const farmers=[
+
+{
+name:"Farmer Ade",
+image:"https://www.shutterstock.com/image-photo/african-farmer-examining-corn-crops-600nw-2467702159.jpg",
+product:"Fresh Tomatoes",
+rating:"4.8"
+},
+
+{
+name:"Mama Grace Farm",
+image:"https://images.unsplash.com/photo-1500595046743-cd271d694d30",
+product:"different type of livestocks",
+rating:"4.6"
+},
+
+{
+name:"Green Valley Farm",
+image:"https://images.unsplash.com/photo-1464226184884-fa280b87c399",
+product:"Fresh Vegetables",
+rating:"4.7"
+}
+
+];
+
+
+/* BANNER CAROUSEL */
+
+const carouselInner=document.getElementById("carouselInner");
+
+banners.forEach((banner,index)=>{
+
+carouselInner.innerHTML+=`
+
+<div class="carousel-item ${index===0?"active":""}">
+
+<img src="${banner.image}" class="d-block w-100" style="height:300px;object-fit:cover">
+
+<div class="carousel-caption text-start">
+
+<h3>${banner.title}</h3>
+<p>${banner.discount}</p>
+
+<button class="btn btn-success btn-sm">Shop Now</button>
+
+</div>
+
+</div>
+
+`;
+
+});
+
+
+/* PROMO CARDS */
+
+const promoCards=document.getElementById("promoCards");
+
+function showPromos(filter="All"){
+
+promoCards.innerHTML="";
+
+const filtered=filter==="All"?promos:promos.filter(p=>p.category===filter);
+
+filtered.forEach(p=>{
+
+promoCards.innerHTML+=`
+
+<div class="col">
+
+<div class="card promo-card">
+
+<span class="badge bg-danger discount-badge">${p.discount}</span>
+
+<img src="${p.image}" class="card-img-top">
+
+<div class="card-body">
+
+<h5>${p.name}</h5>
+
+<p>${p.description}</p>
+
+<p class="text-danger">Deal ends in: <span id="timer-${p.id}">00:00:00</span></p>
+
+<button class="btn btn-success w-100">Buy Now</button>
+
+</div>
+
+</div>
+
+</div>
+
+`;
+
+});
+
+startAllTimers();
+
+}
+
+showPromos();
+
+
+/* FILTER */
+
+document.querySelectorAll(".category-btn").forEach(btn=>{
+
+btn.addEventListener("click",()=>{
+
+document.querySelectorAll(".category-btn").forEach(b=>b.classList.remove("active"));
+
+btn.classList.add("active");
+
+showPromos(btn.dataset.category);
+
+});
+
+});
+
+
+/* CATEGORY CARDS */
+
+const categoryCards=document.getElementById("categoryCards");
+
+categories.forEach(cat=>{
+
+categoryCards.innerHTML+=`
+
+<div class="category-card">
+
+<img src="${categoryImages[cat]}">
+
+<div class="category-name">${cat}</div>
+
+</div>
+
+`;
+
+});
+
+
+/* FARMERS */
+
+const farmersSection=document.getElementById("farmersSection");
+
+farmers.forEach(farmer=>{
+
+farmersSection.innerHTML+=`
+
+<div class="col-md-4">
+
+<div class="farmer-card">
+
+<img src="${farmer.image}" class="w-100">
+
+<div class="farmer-info">
+
+<h5>${farmer.name}</h5>
+
+<p>${farmer.product}</p>
+
+<p class="rating">⭐ ${farmer.rating}</p>
+
+<button class="btn btn-success w-100">View Farm</button>
+
+</div>
+
+</div>
+
+</div>
+
+`;
+
+});
+
+
+/* TIMER */
+
+function startCountdown(id,time){
+
+let seconds=time;
+
+const timer=setInterval(()=>{
+
+let h=Math.floor(seconds/3600);
+let m=Math.floor((seconds%3600)/60);
+let s=seconds%60;
+
+document.getElementById(`timer-${id}`).innerHTML=`${h}:${m}:${s}`;
+
+seconds--;
+
+if(seconds<0){
+clearInterval(timer);
+document.getElementById(`timer-${id}`).innerHTML="Expired";
+}
+
+},1000);
+
+}
+
+function startAllTimers(){
+promos.forEach(p=>startCountdown(p.id,7200));
+}
+
+
+/* SUBSCRIBE */
+
+const subscribeForm=document.getElementById("subscribeForm");
+
+const message=document.getElementById("subscribeMessage");
+
+subscribeForm.addEventListener("submit",(e)=>{
+
+e.preventDefault();
+
+message.innerText="Successfully subscribed!";
+subscribeForm.reset();
+
+});
+
+</script>
+
+</body>
+</html>
+```
