@@ -49,7 +49,7 @@ async function payNow() {
   }
 
   // 🔥 THIS CALLS YOUR BACKEND (WHICH CONNECTS TO QUICKTELLER)
-  const res = await fetch("http://localhost:5000/pay", {
+  const res = await fetch("https://natural-farm-produces.onrender.com/pay", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
@@ -60,9 +60,7 @@ async function payNow() {
   // 🔥 THIS LOADS QUICKTELLER FORM (IMPORTANT)
   const html = await res.text();
 
-  document.open();
-  document.write(html);
-  document.close();
+  document.body.innerHTML = html;
 }
 </script>
 

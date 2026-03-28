@@ -21,11 +21,22 @@ const PAY_ITEM_ID = "Default_Payable_MX276268";
 const API_KEY = "i6/KGNOgNSsr2+JJdq77mkAmCLltiOcd5tgSneHa8qIx7iX3I3zjuKIZTCch88LG";
 
 // ⚠️ IMPORTANT: Replace with your Render URL after deploy
-const BASE_URL = process.env.BASE_URL || "http://localhost:5000";
+const BASE_URL = "https://natural-farm-produces.onrender.com";
 
 // ===============================
 // 🟢 INITIATE PAYMENT ROUTE
 // ===============================
+app.get("/", (req, res) => {
+  res.send(`
+    <h2 style="text-align:center;margin-top:100px;">
+      🌿 Natural Farm API is Running
+    </h2>
+    <p style="text-align:center;">
+      Payment service is active
+    </p>
+  `);
+});
+
 app.post("/pay", (req, res) => {
   const { amount, email, name } = req.body;
 
@@ -57,21 +68,21 @@ app.post("/pay", (req, res) => {
 
       <h3>Redirecting to payment...</h3>
 
-      <form method="POST" action="https://qa.interswitchng.com/webpay/pay">
+      <form method="POST" action="https://webpay.interswitchng.com/collections/w/pay">
 
-        <input type="hidden" name="product_id" value="${PRODUCT_ID}" />
-        <input type="hidden" name="pay_item_id" value="${PAY_ITEM_ID}" />
-        <input type="hidden" name="amount" value="${amountKobo}" />
-        <input type="hidden" name="currency" value="566" />
-        <input type="hidden" name="txn_ref" value="${txnRef}" />
-        <input type="hidden" name="site_redirect_url" value="${BASE_URL}/verify" />
-        <input type="hidden" name="cust_email" value="${email}" />
-        <input type="hidden" name="cust_name" value="${name}" />
-        <input type="hidden" name="payment_params" value="cart_id=${txnRef}&cust_id=${email}" />
-        <input type="hidden" name="hash" value="${hash}" />
+  <input type="hidden" name="product_id" value="${PRODUCT_ID}" />
+  <input type="hidden" name="pay_item_id" value="${PAY_ITEM_ID}" />
+  <input type="hidden" name="amount" value="${amountKobo}" />
+  <input type="hidden" name="currency" value="566" />
+  <input type="hidden" name="txn_ref" value="${txnRef}" />
+  <input type="hidden" name="site_redirect_url" value="${BASE_URL}/verify" />
+  <input type="hidden" name="cust_email" value="${email}" />
+  <input type="hidden" name="cust_name" value="${name}" />
+  <input type="hidden" name="payment_params" value="cart_id=${txnRef}&cust_id=${email}" />
+  <input type="hidden" name="hash" value="${hash}" />
+  <input type="hidden" name="site_name" value="Natural Farm" />
 
-      </form>
-
+</form>
     </body>
     </html>
   `);
