@@ -5,32 +5,52 @@ const path = require("path");
 
 const app = express();
 
+// ===============================
+// 🟢 MIDDLEWARE
+// ===============================
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// ===============================
+// 🟢 STATIC FRONTEND (IMPORTANT FIX)
+// ===============================
 app.use(express.static(path.join(__dirname, "frontend")));
 
+// ===============================
+// 🔥 CONFIG (QUICKTELLER LIVE)
+// ===============================
 const PORT = process.env.PORT || 5000;
 
-// 🔥 YOUR REAL CREDENTIALS
 const PRODUCT_ID = "MX180463";
 const PAY_ITEM_ID = "Default_Payable_MX180463";
 const SECRET_KEY = "a25uPFC7Xf0fCHD";
 
-// 🔥 IMPORTANT: use your LIVE domain
 const BASE_URL = "https://natural-farm-produces.onrender.com";
 
+// ===============================
+// 🟢 HOME ROUTE (FIXED - SHOWS WEBSITE)
+// ===============================
 app.get("/", (req, res) => {
-  res.send("Natural Farm API Running 🚀");
+  res.sendFile(path.join(__dirname, "frontend", "index.html"));
 });
 
+// ===============================
+// 🟢 PAYMENT INITIATE ROUTE
+// ===============================
 app.post("/pay", (req, res) => {
   const { amount, email, name } = req.body;
+
+  if (!amount || !email || !name) {
+    return res.status(400).send("Missing required fields");
+  }
 
   const txnRef = "TXN_" + Date.now();
   const amountKobo = Number(amount) * 100;
 
-  // 🔥 CORRECT HASH FORMAT (VERY IMPORTANT)
+  // ===============================
+  // 🔐 CORRECT HASH (VERY IMPORTANT)
+  // ===============================
   const hashString =
     PRODUCT_ID +
     PAY_ITEM_ID +
@@ -43,12 +63,22 @@ app.post("/pay", (req, res) => {
     .update(hashString, "utf-8")
     .digest("hex");
 
-  console.log("HASH:", hash);
+  console.log("🔐 HASH GENERATED:", hash);
 
+  // ===============================
+  // 🟢 REDIRECT PAGE (FIXED FLOW)
+  // ===============================
   res.send(`
+    <!DOCTYPE html>
     <html>
-    <body style="text-align:center;font-family:Arial;margin-top:80px;">
+    <head>
+      <title>Redirecting...</title>
+    </head>
+
+    <body style="font-family:Arial;text-align:center;margin-top:100px;">
+
       <h2>Redirecting to payment...</h2>
+      <p>Please wait...</p>
 
       <form id="payForm" method="POST" action="https://webpay.interswitchng.com/collections/w/pay">
 
@@ -62,13 +92,21 @@ app.post("/pay", (req, res) => {
         <input type="hidden" name="cust_name" value="${name}" />
         <input type="hidden" name="hash" value="${hash}" />
 
-        <button type="submit">Pay Now</button>
+        <button type="submit" style="padding:10px 20px;background:green;color:white;">
+          Pay Now
+        </button>
+
       </form>
 
       <script>
+        // auto submit (with fallback)
+        window.onload = function () {
+          document.getElementById("payForm").submit();
+        };
+
         setTimeout(() => {
-          document.getElementById('payForm').submit();
-        }, 1000);
+          document.getElementById("payForm").submit();
+        }, 1200);
       </script>
 
     </body>
@@ -76,8 +114,25 @@ app.post("/pay", (req, res) => {
   `);
 });
 
+// ===============================
+// 🟢 PAYMENT SUCCESS CALLBACK
+// ===============================
 app.get("/verify", (req, res) => {
-  res.send("<h2>Payment Completed ✅</h2>");
+  res.send(`
+    <html>
+      <body style="font-family:Arial;text-align:center;margin-top:100px;">
+        <h1 style="color:green;">Payment Successful ✅</h1>
+        <p>Thank you for your order</p>
+
+        <a href="/" style="color:blue;">Go Back Home</a>
+      </body>
+    </html>
+  `);
 });
 
-app.listen(PORT, () => console.log("Running on " + PORT));
+// ===============================
+// 🟢 START SERVER
+// ===============================
+app.listen(PORT, () => {
+  console.log("🚀 Server running on port " + PORT);
+});
