@@ -12,7 +12,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // ===============================
-// 🔐 CONFIG (HARDCODED FOR DEMO)
+// 🔐 CONFIG
 // ===============================
 const PORT = process.env.PORT || 5000;
 
@@ -20,11 +20,11 @@ const PRODUCT_ID = "MX276268";
 const PAY_ITEM_ID = "Default_Payable_MX276268";
 const API_KEY = "i6/KGNOgNSsr2+JJdq77mkAmCLltiOcd5tgSneHa8qIx7iX3I3zjuKIZTCch88LG";
 
-// ⚠️ IMPORTANT: Replace with your Render URL after deploy
+// LIVE Render URL
 const BASE_URL = "https://natural-farm-produces.onrender.com";
 
 // ===============================
-// 🟢 INITIATE PAYMENT ROUTE
+// 🟢 HOME ROUTE
 // ===============================
 app.get("/", (req, res) => {
   res.send(`
@@ -32,11 +32,14 @@ app.get("/", (req, res) => {
       🌿 Natural Farm API is Running
     </h2>
     <p style="text-align:center;">
-      Payment service is active
+      Payment service is active 🚀
     </p>
   `);
 });
 
+// ===============================
+// 🟢 INITIATE PAYMENT
+// ===============================
 app.post("/pay", (req, res) => {
   const { amount, email, name } = req.body;
 
@@ -59,30 +62,49 @@ app.post("/pay", (req, res) => {
     .update(hashString, "utf-8")
     .digest("hex");
 
-  console.log("🔐 HASH:", hash);
+  console.log("🔐 HASH GENERATED:", hash);
 
+  // ===============================
+  // 🟢 REDIRECT PAGE (FIXED)
+  // ===============================
   res.send(`
     <!DOCTYPE html>
     <html>
-    <body onload="document.forms[0].submit()">
+    <head>
+      <title>Redirecting Payment</title>
+    </head>
 
-      <h3>Redirecting to payment...</h3>
+    <body style="font-family:Arial;text-align:center;margin-top:100px;">
 
-      <form method="POST" action="https://webpay.interswitchng.com/collections/w/pay">
+      <h2>Redirecting to payment...</h2>
+      <p>Please wait...</p>
 
-  <input type="hidden" name="product_id" value="${PRODUCT_ID}" />
-  <input type="hidden" name="pay_item_id" value="${PAY_ITEM_ID}" />
-  <input type="hidden" name="amount" value="${amountKobo}" />
-  <input type="hidden" name="currency" value="566" />
-  <input type="hidden" name="txn_ref" value="${txnRef}" />
-  <input type="hidden" name="site_redirect_url" value="${BASE_URL}/verify" />
-  <input type="hidden" name="cust_email" value="${email}" />
-  <input type="hidden" name="cust_name" value="${name}" />
-  <input type="hidden" name="payment_params" value="cart_id=${txnRef}&cust_id=${email}" />
-  <input type="hidden" name="hash" value="${hash}" />
-  <input type="hidden" name="site_name" value="Natural Farm" />
+      <form id="payForm" method="POST" action="https://webpay.interswitchng.com/collections/w/pay">
 
-</form>
+        <input type="hidden" name="product_id" value="${PRODUCT_ID}" />
+        <input type="hidden" name="pay_item_id" value="${PAY_ITEM_ID}" />
+        <input type="hidden" name="amount" value="${amountKobo}" />
+        <input type="hidden" name="currency" value="566" />
+        <input type="hidden" name="txn_ref" value="${txnRef}" />
+        <input type="hidden" name="site_redirect_url" value="${BASE_URL}/verify" />
+        <input type="hidden" name="cust_email" value="${email}" />
+        <input type="hidden" name="cust_name" value="${name}" />
+        <input type="hidden" name="payment_params" value="cart_id=${txnRef}&cust_id=${email}" />
+        <input type="hidden" name="hash" value="${hash}" />
+        <input type="hidden" name="site_name" value="Natural Farm" />
+
+      </form>
+
+      <script>
+        window.onload = function () {
+          document.getElementById("payForm").submit();
+        };
+
+        setTimeout(() => {
+          document.getElementById("payForm").submit();
+        }, 800);
+      </script>
+
     </body>
     </html>
   `);
@@ -99,7 +121,10 @@ app.get("/verify", (req, res) => {
       <h1 style="color:#22c55e;">✅ Payment Successful</h1>
       <p>Demo confirmation page</p>
 
-      <p><strong>Ref:</strong> ${req.query.txnref || "TXN_DEMO_123"}</p>
+      <p><strong>Reference:</strong> ${req.query.txnref || "TXN_DEMO_123"}</p>
+
+      <br>
+      <a href="/" style="color:#38bdf8;">Go Home</a>
 
     </body>
     </html>
