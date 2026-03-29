@@ -81,22 +81,40 @@ button:hover {
 </div>
 
 <script>
-function payNow() {
+async function payNow() {
   const name = document.getElementById("name").value;
   const email = document.getElementById("email").value;
   const amount = document.getElementById("amount").value;
 
   if (!name || !email || !amount) {
-    alert("Fill all fields");
+    alert("Please fill all fields");
     return;
   }
 
-  // 🔥 PASS DATA VIA URL
-  window.location.href =
-    "payment-options.html?name=" + encodeURIComponent(name) +
-    "&email=" + encodeURIComponent(email) +
-    "&amount=" + encodeURIComponent(amount);
+  document.getElementById("loading").style.display = "block";
+
+  try {
+    const res = await fetch("https://natural-farm-produces.onrender.com/pay", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ name, email, amount })
+    });
+
+    const html = await res.text();
+
+    // 🔥 THIS IS WHAT TRIGGERS QUICKTELLER REDIRECT
+    document.open();
+    document.write(html);
+    document.close();
+
+  } catch (error) {
+    alert("Payment failed. Try again.");
+    console.error(error);
+  }
 }
 </script>
+
 </body>
 </html>

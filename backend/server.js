@@ -12,25 +12,33 @@ app.use(express.static(path.join(__dirname, "frontend")));
 
 const PORT = process.env.PORT || 5000;
 
-// 🔥 YOUR REAL CREDENTIALS
+// 🔐 YOUR REAL CREDENTIALS
 const PRODUCT_ID = "MX180463";
 const PAY_ITEM_ID = "Default_Payable_MX180463";
 const SECRET_KEY = "a25uPFC7Xf0fCHD";
 
-// 🔥 IMPORTANT: use your LIVE domain
+// 🔥 LIVE DOMAIN
 const BASE_URL = "https://natural-farm-produces.onrender.com";
 
+// ✅ HOME ROUTE
 app.get("/", (req, res) => {
-  res.send("Natural Farm API Running 🚀");
+  res.send("🌿 Natural Farm API Running 🚀");
 });
 
+// ===============================
+// 🟢 PAYMENT ROUTE
+// ===============================
 app.post("/pay", (req, res) => {
   const { amount, email, name } = req.body;
+
+  if (!amount || !email || !name) {
+    return res.send("❌ Missing payment data");
+  }
 
   const txnRef = "TXN_" + Date.now();
   const amountKobo = Number(amount) * 100;
 
-  // 🔥 CORRECT HASH FORMAT (VERY IMPORTANT)
+  // 🔐 HASH
   const hashString =
     PRODUCT_ID +
     PAY_ITEM_ID +
@@ -43,14 +51,19 @@ app.post("/pay", (req, res) => {
     .update(hashString, "utf-8")
     .digest("hex");
 
-  console.log("HASH:", hash);
+  console.log("✅ HASH:", hash);
 
   res.send(`
+    <!DOCTYPE html>
     <html>
-    <body style="text-align:center;font-family:Arial;margin-top:80px;">
-      <h2>Redirecting to payment...</h2>
+    <head>
+      <title>Redirecting...</title>
+    </head>
+    <body>
 
-      <form id="payForm" method="POST" action="https://webpay.interswitchng.com/collections/w/pay">
+      <h3>Redirecting to Quickteller...</h3>
+
+      <form id="payForm" method="POST" action="https://qa.interswitchng.com/webpay/pay">
 
         <input type="hidden" name="product_id" value="${PRODUCT_ID}" />
         <input type="hidden" name="pay_item_id" value="${PAY_ITEM_ID}" />
@@ -58,17 +71,20 @@ app.post("/pay", (req, res) => {
         <input type="hidden" name="currency" value="566" />
         <input type="hidden" name="txn_ref" value="${txnRef}" />
         <input type="hidden" name="site_redirect_url" value="${BASE_URL}/verify" />
+
         <input type="hidden" name="cust_email" value="${email}" />
         <input type="hidden" name="cust_name" value="${name}" />
+
+        <!-- 🔥 VERY IMPORTANT -->
+        <input type="hidden" name="payment_params" value="cart_id=${txnRef}&cust_id=${email}" />
+
         <input type="hidden" name="hash" value="${hash}" />
 
-        <button type="submit">Pay Now</button>
       </form>
 
       <script>
-        setTimeout(() => {
-          document.getElementById('payForm').submit();
-        }, 1000);
+        // 🔥 INSTANT SUBMIT (NO DELAY)
+        document.getElementById("payForm").submit();
       </script>
 
     </body>
@@ -76,8 +92,18 @@ app.post("/pay", (req, res) => {
   `);
 });
 
+// ===============================
+// 🟢 VERIFY
+// ===============================
 app.get("/verify", (req, res) => {
-  res.send("<h2>Payment Completed ✅</h2>");
+  res.send(`
+    <h2 style="text-align:center;margin-top:80px;color:green;">
+      ✅ Payment Completed (Demo)
+    </h2>
+  `);
 });
 
-app.listen(PORT, () => console.log("Running on " + PORT));
+// ===============================
+app.listen(PORT, () => {
+  console.log("🚀 Server running on port " + PORT);
+});
